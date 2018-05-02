@@ -7,6 +7,7 @@ RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV hadoop_ver 2.7.5 
 ENV spark_ver 2.2.1
+ENV file_server http://172.31.78.216:2121
 
 # Get Hadoop from US Apache mirror and extract just the native
 # libs. (Until we care about running HDFS with these containers, this
@@ -14,7 +15,7 @@ ENV spark_ver 2.2.1
 RUN mkdir -p /opt && \
     cd /opt && \
     #tar -zxf hadoop-${hadoop_ver}.tar.gz hadoop-${hadoop_ver}/lib/native && \
-    cat hadoop-${hadoop_ver}.tar.gz | \
+    curl ${file_server}/hadoop-${hadoop_ver}.tar.gz | \
         tar -zx hadoop-${hadoop_ver}/lib/native && \
     rm -f hadoop-${hadoop_ver}.tar.gz && \
     ln -s hadoop-${hadoop_ver} hadoop && \
@@ -24,7 +25,7 @@ RUN mkdir -p /opt && \
 RUN mkdir -p /opt && \
     cd /opt && \
     #tar -zxf spark-${spark_ver}-bin-hadoop2.7.tgz && \
-    cat spark-${spark_ver}-bin-hadoop2.7.tgz | \
+    curl ${file_server}/spark-${spark_ver}-bin-hadoop2.7.tgz | \
         tar -zx && \
     rm -f spark-${spark_ver}-bin-hadoop2.7.tgz && \
     ln -s spark-${spark_ver}-bin-hadoop2.7 spark && \
