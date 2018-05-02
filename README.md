@@ -1,11 +1,19 @@
-0 setup ftp server
+0 setup file server
 ===
-	ftp server is in the directory named ftp-server
-	build the image, and use the following command to start
+	file server is in the directory named file-server
+	build the image:
 ```console
-docker run -d --network host -v your-software-dir:/mnt ftp-server /ftp-server -p=working-port
+docker build -t file-server .
 ```
-1 change the ftp info
+1 run the image
 ===
-	change the info of ftp server in the Dockerfiles
-	can use the change-ftp-server.sh script to implement
+```console
+docker run -d --network host -v your-software-dir:/mnt file-server /file-server -p=working-port
+```
+2 change the info of the file server
+===
+	change the info of file server in Dockerfiles
+	one can use the change-file-server.sh script to implement:
+```console
+./change-file-server.sh http://x.x.x.x:y
+```
