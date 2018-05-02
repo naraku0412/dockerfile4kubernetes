@@ -9,7 +9,7 @@ docker build -t file-server .
 ===
 	Notes:
 1. using host network
-2. map the directory holding the files to the /mnt directory of docker 
+2. maping the directory holding files to the /mnt directory of docker 
 ```console
 docker run -d --network host -v your-software-dir:/mnt --name file-server file-server /file-server -p=working-port
 ```
