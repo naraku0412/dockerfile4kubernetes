@@ -21,12 +21,12 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV ZEPPELIN_VER 0.7.3
-ENV ftp_server 172.31.78.216:2121
+ENV file_server http://172.31.78.216:2121
 #http://www-us.apache.org/dist/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz 
 
 RUN mkdir -p /opt && \
     cd /opt && \
-    curl ftp://${ftp_server}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
+    curl ${file_server}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
       tar -zx && \
     ln -s zeppelin-${ZEPPELIN_VER}-bin-all zeppelin && \
     echo Zeppelin ${ZEPPELIN_VER} installed in /opt

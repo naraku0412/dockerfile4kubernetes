@@ -16,7 +16,7 @@ RUN apt-get update && \
 # uncompress & rename svc 
 RUN mkdir -p /opt && \
     cd /opt && \
-    curl ftp://${ftp_server}/zookeeper-${zookeeper_ver}.tar.gz | \
+    curl ${file_server}/zookeeper-${zookeeper_ver}.tar.gz | \
       tar -zx && \
     ln -s zookeeper-${zookeeper_ver} zookeeper && \
     echo Zookeeper ${zookeeper_ver} installed in /opt

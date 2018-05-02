@@ -5,7 +5,7 @@ RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV hadoop_ver 2.7.5 
 ENV spark_ver 2.2.1
-ENV ftp_server 172.31.78.216:2121
+ENV file_server http://172.31.78.216:2121
 
 RUN apt-get update && \
     apt-get install -y curl && \
@@ -17,7 +17,7 @@ RUN apt-get update && \
 RUN mkdir -p /opt && \
     cd /opt && \
     #tar -zxf hadoop-${hadoop_ver}.tar.gz hadoop-${hadoop_ver}/lib/native && \
-    curl ftp://${ftp_server}/hadoop-${hadoop_ver}.tar.gz | \
+    curl ${file_server}/hadoop-${hadoop_ver}.tar.gz | \
         tar -zx hadoop-${hadoop_ver}/lib/native && \
     ln -s hadoop-${hadoop_ver} hadoop && \
     echo Hadoop ${hadoop_ver} native libraries installed in /opt/hadoop/lib/native
@@ -26,7 +26,7 @@ RUN mkdir -p /opt && \
 RUN mkdir -p /opt && \
     cd /opt && \
     #tar -zxf spark-${spark_ver}-bin-hadoop2.7.tgz && \
-    curl ftp://${ftp_server}/spark-${spark_ver}-bin-hadoop2.7.tgz | \
+    curl ${file_server}/spark-${spark_ver}-bin-hadoop2.7.tgz | \
         tar -zx && \
     ln -s spark-${spark_ver}-bin-hadoop2.7 spark && \
     echo Spark ${spark_ver} installed in /opt
@@ -35,8 +35,8 @@ RUN mkdir -p /opt && \
 #RUN mv /opt/gcs-connector-latest-hadoop2.jar /opt/spark/lib
 RUN mkdir -p /opt/spark/lib && \
     cd /opt/spark/lib && \
-    curl -O ftp://${ftp_server}/gcs-connector-latest-hadoop2.jar
-    #curl -o gcs-connector-latest-hadoop2.jar ftp://${ftp_server}/gcs-connector-latest-hadoop2.jar
+    curl -O ${file_server}/gcs-connector-latest-hadoop2.jar
+    #curl -o gcs-connector-latest-hadoop2.jar ${file_server}/gcs-connector-latest-hadoop2.jar
 
 # if numpy is installed on a driver it needs to be installed on all
 # workers, so install it everywhere\

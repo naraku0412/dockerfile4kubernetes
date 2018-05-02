@@ -4,7 +4,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV cassandra_ver 3.11.2
-ENV ftp_server 172.31.78.216:2121
+ENV file_server http://172.31.78.216:2121
 
 RUN apt-get update && \
     apt-get install -y openjdk-8-jdk && \
@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 RUN mkdir -p /opt && \
     cd /opt && \
-    curl ftp://${ftp_server}/apache-cassandra-${cassandra_ver}-bin.tar.gz | \
+    curl ${file_server}/apache-cassandra-${cassandra_ver}-bin.tar.gz | \
       tar -zx && \
     ln -s apache-cassandra-${cassandra_ver} cassandra && \
     echo Cassandra ${cassandra_ver} installed in /opt
