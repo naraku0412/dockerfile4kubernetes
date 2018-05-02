@@ -3,8 +3,7 @@ FROM ubuntu-16.04
 MAINTAINER Lue Young <lueyoung7@163.com>
 
 ENV zookeeper_ver 3.4.11
-
-COPY build /opt
+ENV file_server http://172.31.78.216:2121
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
