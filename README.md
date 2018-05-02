@@ -8,7 +8,7 @@ docker build -t file-server .
 1 run the image
 ===
 ```console
-docker run -d --network host -v your-software-dir:/mnt file-server /file-server -p=working-port
+docker run -d --network host -v your-software-dir:/mnt --name file-server file-server /file-server -p=working-port
 ```
 2 change the info of the file server
 ===
