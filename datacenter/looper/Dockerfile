@@ -1,4 +1,4 @@
-FROM lowyard/openjdk-8-jdk 
+FROM ubuntu-16.04 
 
 MAINTAINER Lue Young <lueyoung7@163.com>
 
