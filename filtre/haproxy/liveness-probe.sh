@@ -1,11 +1,14 @@
 #!/bin/bash
 FILES=$(cat /etc/haproxy/watch.lst)
-for FILE in $FILES; do
-  if [ ! -f /tmp/$FILE ]; then
-    cp /etc/haproxy/$FILE /tmp/$FILE
+for FILE_NAME in $FILES; do
+  FILE="/etc/haproxy/${FILE_NAME}"
+  SHA="/tmp/${FILE_NAME}.sha256"
+  if [ ! -f "$SHA" ]; then
+    sha256sum $FILE | awk -F ' ' '{print $1}' > $SHA
   else
-    DIFF=$(diff /etc/haproxy/$FILE /tmp/$FILE)
-    if [ -n "$DIFF" ]; then 
+    X=$(cat $SHA)
+    Y=$(sha256sum $FILE | awk -F ' ' '{print $1}')
+    if [ "$X" != "$Y" ]; then
       exit 1
     fi
   fi
