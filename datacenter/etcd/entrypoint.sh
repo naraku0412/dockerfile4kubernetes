@@ -31,8 +31,7 @@ echo "$(date) - $0 - ID: ${ID}"
 echo "$(date) - $0 - Alias: ${ALIAS}"
 echo "$(date) - $0 - svc discovery: $DSCV"
 
-service ssh start
-
+if false; then
 ETCD_NODES=""
 for i in $(seq -s ' ' 1 $N_NODES); do
   ETCD_NODES+=','
@@ -59,8 +58,14 @@ for i in $(seq -s ' ' 1 $N_NODES); do
   fi
   ETCD_NODES+="$NAME=http://$IP:2380"
 done
-
 ETCD_NODES=${ETCD_NODES#*,}
+fi
+
+ETCD_NODES=""
+SEP=''
+for i in $(seq -s ' ' 1 $N_NODES); do
+  ETCD_NODES+="$SEP"
+  
 
 echo "$(date) - $0 - Etcd nodes: $ETCD_NODES"
 echo "$(date) - $0 - this name: ${THIS_NAME}"
