@@ -19,3 +19,4 @@ RUN apt-get clean && \
     rm -rf /tmp/* /usr/share/man /usr/share/doc
 
 ADD entrypoint.sh /
+ENV PATH $PATH:/opt/etcd
