@@ -25,11 +25,12 @@ THIS_NAME=$(hostname -s)
 ALIAS=$(echo $THIS_NAME | awk -F '-' '{print $1}')
 ID=$(echo $THIS_NAME | awk -F '-' '{print $2}')
 #ID=$(echo $THIS_NAME | awk -F '-' '{print $2}' | awk -F '.' '{print $1}')
-echo "$(date) - $0 - Nodes in this cluster: $N_NODES"
-echo "$(date) - $0 - IP: ${THIS_IP}"
-echo "$(date) - $0 - ID: ${ID}"
-echo "$(date) - $0 - Alias: ${ALIAS}"
-echo "$(date) - $0 - svc discovery: $DSCV"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Nodes in this cluster: $N_NODES"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - IP: ${THIS_IP}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - ID: ${ID}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Alias: ${ALIAS}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - svc discovery: $DSCV"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - pod namespace: ${POD_NAMESPACE}"
 
 if false; then
 ETCD_NODES=""
@@ -65,10 +66,14 @@ ETCD_NODES=""
 SEP=''
 for i in $(seq -s ' ' 1 $N_NODES); do
   ETCD_NODES+="$SEP"
-  
+  j=$[$i-1]
+  NAME="$ALIAS-$j"
+  ETCD_NODES+="$NAME=http://$NAME.$DSCV.${POD_NAMESPACE}:2380"
+  SEP=","
+done
 
-echo "$(date) - $0 - Etcd nodes: $ETCD_NODES"
-echo "$(date) - $0 - this name: ${THIS_NAME}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Etcd nodes: $ETCD_NODES"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - this name: ${THIS_NAME}"
 
 [ -e /mnt/$(hostname -s)/etcd ] || mkdir -p /mnt/$(hostname -s)/etcd
 
