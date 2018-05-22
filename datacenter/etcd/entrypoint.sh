@@ -25,12 +25,12 @@ THIS_NAME=$(hostname -s)
 ALIAS=$(echo $THIS_NAME | awk -F '-' '{print $1}')
 ID=$(echo $THIS_NAME | awk -F '-' '{print $2}')
 #ID=$(echo $THIS_NAME | awk -F '-' '{print $2}' | awk -F '.' '{print $1}')
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Nodes in this cluster: $N_NODES"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - IP: ${THIS_IP}"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - ID: ${ID}"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Alias: ${ALIAS}"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - svc discovery: $DSCV"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - pod namespace: ${POD_NAMESPACE}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - Nodes in this cluster: $N_NODES"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - IP: ${THIS_IP}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - ID: ${ID}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - Alias: ${ALIAS}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - svc discovery: $DSCV"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - pod namespace: ${POD_NAMESPACE}"
 
 if false; then
 ETCD_NODES=""
@@ -72,10 +72,19 @@ for i in $(seq -s ' ' 1 $N_NODES); do
   SEP=","
 done
 
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - Etcd nodes: $ETCD_NODES"
-echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - this name: ${THIS_NAME}"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - Etcd nodes: $ETCD_NODES"
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - this name: ${THIS_NAME}"
 
 [ -e /mnt/$(hostname -s)/etcd ] || mkdir -p /mnt/$(hostname -s)/etcd
+[ -e "/mnt/$(hostname -s)/etcd/member" ] && rm -rf /mnt/$(hostname -s)/etcd/member
+if false; then
+if [ -e "/mnt/$(hostname -s)/etcd/member" ]; then
+  STATUS="existing"
+else
+  STATUS="new"
+fi
+echo "$(date -d today +'%Y-%m-%d %H:%M:%S') - $0 - status: ${STATUS}"
+fi
 
 /opt/etcd/etcd --data-dir=/mnt/$(hostname -s)/etcd \
   --name ${THIS_NAME} \
@@ -84,6 +93,7 @@ echo "$(date -d today +'%Y-%m-%d %H:%M:%S')" - $0 - this name: ${THIS_NAME}"
   --advertise-client-urls http://${THIS_IP}:2379 \
   --listen-client-urls http://0.0.0.0:2379 \
   --initial-cluster ${ETCD_NODES} \
+  #--initial-cluster-state ${STATUS} \
   --initial-cluster-state new \
   --initial-cluster-token ${TOKEN} \
   --force-new-cluster
