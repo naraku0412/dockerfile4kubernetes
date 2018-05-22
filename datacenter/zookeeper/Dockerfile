@@ -1,15 +1,11 @@
-FROM ubuntu-16.04 
+FROM openjdk:8u171-jdk-slim-stretch 
 
 MAINTAINER Lue Young <lueyoung7@163.com>
 
 ENV zookeeper_ver 3.4.11
 ENV file_server http://172.31.78.216:2121
 
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
-
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
     apt-get install -y curl 
 
 # uncompress & rename svc 
