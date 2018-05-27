@@ -1,7 +1,5 @@
 FROM centos-7:min 
 
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-
 RUN yum makecache && \
     yum install -y haproxy && \
     yum clean all && \

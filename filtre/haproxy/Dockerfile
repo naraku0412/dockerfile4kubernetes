@@ -1,6 +1,4 @@
-FROM ubuntu-16.04 
-
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+FROM debian:stable 
 
 RUN apt-get update && \
     apt-get install -y haproxy
