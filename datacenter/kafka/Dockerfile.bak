@@ -1,7 +1,7 @@
 FROM lowyard/busybox-curl:latest as build 
 ENV kafka_ver 1.0.1 
 ENV scala_ver 2.11 
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 RUN mkdir -p /opt && \
     cd /opt && \
     curl ${file_server}/kafka_${scala_ver}-${kafka_ver}.tgz | \

@@ -21,7 +21,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV ZEPPELIN_VER 0.7.3
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 #http://www-us.apache.org/dist/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz 
 
 RUN mkdir -p /opt && \

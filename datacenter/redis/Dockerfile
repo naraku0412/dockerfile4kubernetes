@@ -1,7 +1,7 @@
 FROM ubuntu-16.04
 
 ENV redis_ver 4.0.9
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 
 RUN apt-get update && \
     apt-get install -y gcc make tcl ruby curl

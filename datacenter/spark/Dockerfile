@@ -7,7 +7,7 @@ RUN (echo '9ol.8ik,';sleep 1;echo '9ol.8ik,') | passwd root
 
 ENV hadoop_ver 2.7.5 
 ENV spark_ver 2.2.1
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 
 # Get Hadoop from US Apache mirror and extract just the native
 # libs. (Until we care about running HDFS with these containers, this

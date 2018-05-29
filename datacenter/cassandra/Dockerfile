@@ -1,5 +1,5 @@
 FROM lowyard/busybox-curl as build
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 ENV cassandra_ver 3.11.2
 RUN mkdir -p /opt && \
     cd /opt && \

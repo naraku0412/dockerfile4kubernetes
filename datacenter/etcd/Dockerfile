@@ -1,6 +1,6 @@
 FROM lowyard/busybox-curl:latest as build
 ENV etcd_ver v3.3.2
-ENV file_server http://172.31.78.216:2121
+ENV file_server http://10.254.0.21
 # uncompress
 RUN mkdir -p /opt && \
     cd /opt && \
